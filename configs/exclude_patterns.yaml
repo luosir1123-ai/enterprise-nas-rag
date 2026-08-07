@@ -1,0 +1,30 @@
+# 第一版只读扫描排除规则。
+# 匹配规则：
+# - file_globs 匹配文件名。
+# - directory_names 匹配路径中的目录名。
+# - extension_blocklist 匹配扩展名。
+
+file_globs:
+  - "~$*"
+  - "*.tmp"
+  - "*.bak"
+  - "*.exe"
+  - "*.dll"
+  - "*.zip"
+  - "*.rar"
+  - "*.7z"
+
+directory_names:
+  - "__MACOSX"
+  - "回收站"
+  - "临时"
+  - "草稿"
+
+extension_blocklist:
+  - .tmp
+  - .bak
+  - .exe
+  - .dll
+  - .zip
+  - .rar
+  - .7z

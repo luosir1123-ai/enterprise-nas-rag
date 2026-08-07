@@ -1,0 +1,26 @@
+# 企业 RAG 试点权限规划。
+# 当前阶段只生成配置，不会自动修改 DSM 用户或共享文件夹权限。
+
+nas_reader_account:
+  username: rag_reader
+  purpose: 外部 RAG 服务器只读挂载 NAS 三个知识库目录。
+  required_permissions:
+    - knowledge_base_id: pur_shr
+      permission: read_only
+    - knowledge_base_id: sales_shr
+      permission: read_only
+    - knowledge_base_id: product_design
+      permission: read_only
+  denied_by_default: true
+
+permission_groups:
+  rag_pur_readers:
+    description: 可读取采购知识库的用户或服务账号。
+  rag_sales_readers:
+    description: 可读取销售知识库的用户或服务账号。
+  rag_design_readers:
+    description: 可读取产品设计知识库的用户或服务账号。
+
+rag_retrieval_policy:
+  rule: 检索前必须按 knowledge_base 和 permission_group 过滤。
+  forbidden: 禁止先检索无权限文档再隐藏结果。

@@ -1,0 +1,210 @@
+"""Switch the current RAGFlow chat app to DeepSeek as the answer LLM.
+
+Run inside the RAGFlow container with /ragflow as the working directory.
+This keeps embeddings on local bge-m3 and only changes chat-generation model
+configuration for the current tenant/dialog.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+from datetime import datetime
+
+from api.db.services.conversation_service import ConversationService
+from api.db.services.dialog_service import DialogService
+from api.db.services.tenant_llm_service import TenantService
+from api.db.services.tenant_model_instance_service import TenantModelInstanceService
+from api.db.services.tenant_model_provider_service import TenantModelProviderService
+from api.db.services.tenant_model_service import TenantModelService
+from common.constants import LLMType
+
+
+TENANT_ID = "782dc11073c211f1a60c01b4967394e8"
+CHAT_ID = "5dc6373c746011f1b4e439a2bb3fe40b"
+PROVIDER_NAME = "DeepSeek"
+INSTANCE_NAME = "deepseek"
+MODEL_NAME = "deepseek-chat"
+MODEL_ID = f"{MODEL_NAME}@{INSTANCE_NAME}@{PROVIDER_NAME}"
+
+
+def get_api_key() -> str:
+    # Prefer environment or a local one-off file so the project source does not
+    # hard-code secrets. The user supplied the key earlier in this session.
+    value = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+    if value:
+        return value
+    for path in ["/tmp/deepseek_api_key.txt", "/ragflow/.deepseek_api_key"]:
+        try:
+            value = open(path, "r", encoding="utf-8").read().strip()
+            if value:
+                return value
+        except OSError:
+            pass
+    raise RuntimeError(
+        "DeepSeek API key not found. Set DEEPSEEK_API_KEY or write /tmp/deepseek_api_key.txt."
+    )
+
+
+def ensure_deepseek_model(api_key: str) -> dict:
+    provider = TenantModelProviderService.get_by_tenant_id_and_provider_name(
+        TENANT_ID, PROVIDER_NAME
+    )
+    if not provider:
+        TenantModelProviderService.insert(tenant_id=TENANT_ID, provider_name=PROVIDER_NAME)
+        provider = TenantModelProviderService.get_by_tenant_id_and_provider_name(
+            TENANT_ID, PROVIDER_NAME
+        )
+
+    instance = TenantModelInstanceService.get_by_provider_id_and_instance_name(
+        provider.id, INSTANCE_NAME
+    )
+    if not instance:
+        TenantModelInstanceService.create_instance(
+            provider_id=provider.id,
+            instance_name=INSTANCE_NAME,
+            api_key=api_key,
+            extra=json.dumps({"base_url": "", "region": "default"}),
+        )
+        instance = TenantModelInstanceService.get_by_provider_id_and_instance_name(
+            provider.id, INSTANCE_NAME
+        )
+        if not instance:
+            raise RuntimeError("Failed to create DeepSeek model instance")
+    else:
+        TenantModelInstanceService.update_by_id(
+            instance.id,
+            {
+                "api_key": api_key,
+                "extra": json.dumps({"base_url": "", "region": "default"}),
+                "status": "active",
+            },
+        )
+        instance = TenantModelInstanceService.get_by_provider_id_and_instance_name(
+            provider.id, INSTANCE_NAME
+        )
+
+    model = TenantModelService.get_by_provider_id_and_instance_id_and_model_type_and_model_name(
+        provider.id,
+        instance.id,
+        LLMType.CHAT.value,
+        MODEL_NAME,
+    )
+    if not model:
+        TenantModelService.insert(
+            model_name=MODEL_NAME,
+            provider_id=provider.id,
+            instance_id=instance.id,
+            model_type=LLMType.CHAT.value,
+            status="active",
+            extra=json.dumps({"max_tokens": 8192, "is_tools": False}),
+        )
+        model = TenantModelService.get_by_provider_id_and_instance_id_and_model_type_and_model_name(
+            provider.id,
+            instance.id,
+            LLMType.CHAT.value,
+            MODEL_NAME,
+        )
+        if not model:
+            raise RuntimeError("Failed to create DeepSeek chat model record")
+    else:
+        TenantModelService.update_by_id(
+            model.id,
+            {
+                "status": "active",
+                "extra": json.dumps({"max_tokens": 8192, "is_tools": False}),
+            },
+        )
+        model = TenantModelService.get_by_provider_id_and_instance_id_and_model_type_and_model_name(
+            provider.id,
+            instance.id,
+            LLMType.CHAT.value,
+            MODEL_NAME,
+        )
+
+    return {
+        "provider_id": provider.id,
+        "instance_id": instance.id,
+        "model_record_id": model.id,
+        "model_id": MODEL_ID,
+    }
+
+
+def main() -> None:
+    api_key = get_api_key()
+
+    ok, dialog = DialogService.get_by_id(CHAT_ID)
+    if not ok:
+        raise RuntimeError(f"Chat not found: {CHAT_ID}")
+
+    tenant_ok, tenant = TenantService.get_by_id(TENANT_ID)
+    if not tenant_ok:
+        raise RuntimeError(f"Tenant not found: {TENANT_ID}")
+
+    before = {
+        "tenant_llm_id": tenant.llm_id,
+        "chat_llm_id": dialog.llm_id,
+    }
+    model_info = ensure_deepseek_model(api_key)
+
+    llm_setting = dialog.llm_setting or {}
+    llm_setting.update(
+        {
+            "temperature": 0.1,
+            "top_p": 0.8,
+            "presence_penalty": 0.1,
+            "frequency_penalty": 0.1,
+            "max_tokens": 1024,
+        }
+    )
+
+    if not TenantService.update_by_id(TENANT_ID, {"llm_id": MODEL_ID}):
+        raise RuntimeError("Failed to update tenant default LLM")
+
+    if not DialogService.update_by_id(
+        CHAT_ID,
+        {
+            "llm_id": MODEL_ID,
+            "tenant_llm_id": None,
+            "llm_setting": llm_setting,
+        },
+    ):
+        raise RuntimeError("Failed to update dialog LLM")
+
+    reset_sessions = []
+    for conv in ConversationService.query(dialog_id=CHAT_ID):
+        if conv.name:
+            reset_sessions.append(conv.id)
+            ConversationService.update_by_id(
+                conv.id,
+                {
+                    "message": [
+                        {
+                            "role": "assistant",
+                            "content": (dialog.prompt_config or {}).get(
+                                "prologue",
+                                "Hi! I'm your assistant. What can I do for you?",
+                            ),
+                        }
+                    ],
+                    "reference": [],
+                },
+            )
+
+    ok, dialog_after = DialogService.get_by_id(CHAT_ID)
+    tenant_ok, tenant_after = TenantService.get_by_id(TENANT_ID)
+    out = {
+        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "before": before,
+        "after": {
+            "tenant_llm_id": tenant_after.llm_id if tenant_ok else None,
+            "chat_llm_id": dialog_after.llm_id if ok else None,
+        },
+        "model": model_info,
+        "reset_sessions": reset_sessions,
+    }
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

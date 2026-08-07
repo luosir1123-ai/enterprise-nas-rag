@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.letouch.ragflow-nas-sync</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/letouch/Library/Application Support/letouch-ragflow/run_incremental_sync.sh</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StartInterval</key>
+  <integer>3600</integer>
+  <key>StandardOutPath</key>
+  <string>/Users/letouch/Library/Logs/letouch-ragflow/incremental_sync/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/letouch/Library/Logs/letouch-ragflow/incremental_sync/launchd.err.log</string>
+</dict>
+</plist>

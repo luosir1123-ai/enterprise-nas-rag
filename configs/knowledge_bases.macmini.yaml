@@ -1,0 +1,59 @@
+# Mac mini 上使用的企业 NAS 三目录知识库配置
+#
+# 使用前提：
+# - Mac mini 已接入公司有线内网。
+# - NAS 已对 Mac mini 固定 IP 开放 NFS 只读权限。
+# - NAS 共享目录已挂载到 /Users/Shared/nas/LE_TOUCH_SHR。
+# - relative_root 是挂载点下的业务子目录。
+# - 第一版只读扫描，不修改原始 NAS 文件。
+knowledge_bases:
+  - id: pur_shr
+    name: 采购知识库
+    description: 供应商、采购流程、报价、合同、物料资料。
+    nas_path: /volume1/LE TOUCH SHR
+    external_mount_path: /Users/Shared/nas/LE_TOUCH_SHR
+    local_scan_path: /Users/Shared/nas/LE_TOUCH_SHR
+    relative_root: PUR-SHR
+    permission_group: rag_pur_readers
+    include_extensions:
+      - .docx
+      - .xlsx
+      - .pptx
+      - .pdf
+      - .txt
+      - .md
+      - .csv
+
+  - id: sales_shr
+    name: 销售知识库
+    description: 客户资料、报价方案、销售合同、项目记录。
+    nas_path: /volume1/LE TOUCH SHR
+    external_mount_path: /Users/Shared/nas/LE_TOUCH_SHR
+    local_scan_path: /Users/Shared/nas/LE_TOUCH_SHR
+    relative_root: SALES-SHR
+    permission_group: rag_sales_readers
+    include_extensions:
+      - .docx
+      - .xlsx
+      - .pptx
+      - .pdf
+      - .txt
+      - .md
+      - .csv
+
+  - id: product_design
+    name: 产品设计知识库
+    description: 产品方案、设计文档、BOM、评审材料、技术资料。
+    nas_path: /volume1/LE TOUCH SHR
+    external_mount_path: /Users/Shared/nas/LE_TOUCH_SHR
+    local_scan_path: /Users/Shared/nas/LE_TOUCH_SHR
+    relative_root: 产品设计成果(2021年起)
+    permission_group: rag_design_readers
+    include_extensions:
+      - .docx
+      - .xlsx
+      - .pptx
+      - .pdf
+      - .txt
+      - .md
+      - .csv

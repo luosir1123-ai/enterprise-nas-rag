@@ -1,0 +1,35 @@
+# Credentials and local configuration
+.secrets/
+.env
+.env.*
+!.env.example
+
+# Python
+*.py[cod]
+__pycache__/
+.pytest_cache/
+.coverage
+
+# Frontend dependencies and generated assets
+apps/internal-portal/node_modules/
+apps/internal-portal/.vite/
+apps/internal-portal/dist/
+apps/internal-portal/*.tsbuildinfo
+apps/internal-portal/vite.config.js
+apps/internal-portal/vite.config.d.ts
+
+# Runtime state and generated reports
+data/internal_portal/
+data/inventory/
+data/ragflow_runs/
+data/samples/
+data/structured_index/
+output/
+*.sqlite3
+*.log
+*.nohup.log
+
+# OS and editor files
+.DS_Store
+*.swp
+*.swo

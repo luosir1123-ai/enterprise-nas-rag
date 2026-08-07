@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.letouch.ragflow-evaluation</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/letouch/Library/Application Support/letouch-ragflow/run_automated_evaluation.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>
+    <integer>1</integer>
+    <key>Hour</key>
+    <integer>4</integer>
+    <key>Minute</key>
+    <integer>10</integer>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>/Users/letouch/Library/Logs/letouch-ragflow/evaluation/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/letouch/Library/Logs/letouch-ragflow/evaluation/launchd.err.log</string>
+</dict>
+</plist>
