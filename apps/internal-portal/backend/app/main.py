@@ -26,9 +26,9 @@ from .ops_status import evaluation_status, sync_status
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
 logging.getLogger("httpx").setLevel(logging.WARNING)
 logging.getLogger("httpcore").setLevel(logging.WARNING)
-logger = logging.getLogger("letouch-internal-portal")
+logger = logging.getLogger("waimao-internal-portal")
 
-app = FastAPI(title="LeTouch Internal Portal API", docs_url=None, redoc_url=None)
+app = FastAPI(title="Waimao Internal Portal API", docs_url=None, redoc_url=None)
 
 
 def _secret_file_values() -> dict[str, str]:

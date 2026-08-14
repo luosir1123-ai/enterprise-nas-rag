@@ -1,4 +1,4 @@
-# LeTouch 内部知识门户
+# Waimao 内部知识门户
 
 这是 RAGFlow 之上的轻量业务前端。正式部署由内部代理服务调用 RAGFlow，浏览器不保存 RAGFlow 登录态或 API Key。
 
@@ -45,7 +45,7 @@ RAGFlow 服务密钥和企业微信 Secret 只存放在 `.secrets/internal-porta
 首次启用代理：
 
 ```bash
-cd /Users/letouch/Documents/ragflow/ragflow
+cd /Users/your-account/Documents/ragflow/ragflow
 docker compose --env-file docker/.env -f docker/docker-compose.yml -f docker/docker-compose.nas.yml up -d --build ragflow-cpu internal-portal-api
 docker compose --env-file docker/.env -f docker/docker-compose.yml -f docker/docker-compose.nas.yml exec -T ragflow-cpu sh -lc 'cd /ragflow && PYTHONPATH=/ragflow/internal-scripts:/ragflow python /ragflow/internal-scripts/ragflow_create_internal_portal_token.py'
 docker compose --env-file docker/.env -f docker/docker-compose.yml -f docker/docker-compose.nas.yml up -d --force-recreate internal-portal-api

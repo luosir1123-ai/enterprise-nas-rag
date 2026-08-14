@@ -49,7 +49,7 @@ def main() -> None:
     os.chmod(os.path.dirname(args.output), stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
     with open(args.output, "w", encoding="utf-8") as output:
         os.chmod(args.output, stat.S_IRUSR | stat.S_IWUSR)
-        output.write("# Generated for the LeTouch internal portal. Do not commit.\n")
+        output.write("# Generated for the Waimao internal portal. Do not commit.\n")
         output.write(f"RAGFLOW_API_TOKEN={token}\n")
         output.write(f"SESSION_SECRET={session_secret}\n")
     os.chmod(args.output, stat.S_IRUSR | stat.S_IWUSR)

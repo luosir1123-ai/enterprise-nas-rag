@@ -1,246 +1,176 @@
-# 企业 NAS 三目录 RAG 试点
+<div align="center">
+  <img src="assets/enterprise-nas-rag-banner.svg" alt="Enterprise NAS RAG" width="100%">
+</div>
 
-本项目用于把 Synology NAS 上的三个业务目录整理成企业 RAG 的可靠数据源。当前阶段不在 NAS 上跑完整 RAGFlow、本地大模型、OCR、embedding 或 reranker，只做只读扫描、文件清单、目录治理、权限规划和后续外部服务器接入准备。
+<div align="center">
 
-## 试点范围
+[![Python](https://img.shields.io/badge/Python-3.9%2B-3776ab.svg)](requirements.txt)
+[![RAGFlow](https://img.shields.io/badge/RAGFlow-Knowledge%20Engine-0f766e.svg)](docs/RAGFlow部署与NAS接入记录.md)
+[![NAS](https://img.shields.io/badge/NAS-Read--only%20Source-475569.svg)](docs/挂载方式决策说明.md)
+[![Evaluation](https://img.shields.io/badge/RAG-Regression%20Evaluation-7c3aed.svg)](docs/评估集说明.md)
+[![Portal](https://img.shields.io/badge/Portal-React%20%2B%20FastAPI-149eca.svg)](apps/internal-portal/)
 
-| NAS 目录 | 知识库名称 | 第一版用途 |
+**面向企业 NAS 文档的增量同步、结构化检索、质量评测与内部知识门户。**
+
+[English](README.en.md)
+
+</div>
+
+---
+
+## 项目定位
+
+`enterprise-nas-rag` 把企业 NAS 中的采购、销售和产品设计资料组织成可治理、可评测、可追溯的 RAG 数据链路。NAS 始终作为权威只读资料源；扫描、解析、索引、检索、评测和问答运行在外部计算节点。
+
+项目最初从“三目录只读扫描试点”开始，仓库现在还包含增量同步、业务元数据、Excel 行级索引、RAGFlow 运维脚本、回归评测和内部知识门户。历史文档保留了试点演进过程，当前能力以可执行脚本、门户代码和测试为准。
+
+> [!IMPORTANT]
+> 本仓库是面向特定企业环境形成的工程参考，不是开箱即用的通用 SaaS。真实部署必须重新配置 NAS 路径、RAGFlow 数据集、身份认证、权限组、密钥和评估答案。
+
+## 能力地图
+
+| 模块 | 作用 | 主要产物 |
 |---|---|---|
-| `PUR-SHR` | 采购知识库 | 供应商、采购流程、报价、合同、物料资料 |
-| `SALES-SHR` | 销售知识库 | 客户资料、报价方案、销售合同、项目记录 |
-| `产品设计成果(2021年起)` | 产品设计知识库 | 产品方案、设计文档、BOM、评审材料、技术资料 |
+| NAS 扫描与抽样 | 只读盘点文件、执行纳入/排除规则、生成样本计划 | CSV/SQLite 清单、统计报告、样本计划 |
+| 幂等增量同步 | 识别新增、修改、历史、缺失和重复副本 | 同步变更、RAGFlow 文档、运行报告 |
+| 业务元数据 | 从路径和文件名提取年份、型号、文档类型与权威性 | 检索过滤与业务重排字段 |
+| Excel 行级索引 | 为表格的型号、报价、MOQ、供应商等字段建立精查入口 | SQLite FTS 行索引与来源定位 |
+| 自动评测 | 分离来源召回与业务答案准确性 | 评测报告、失败清单、回归基线 |
+| 内部知识门户 | 提供采购、销售、产品助手和只读运维状态 | 带引用问答、历史会话、同步/评测看板 |
 
-已确认 NAS 环境：
-
-- 型号：Synology `DS224+`
-- CPU：`Intel Celeron J4125`，4 核
-- 当前内存：`2GB`
-- DSM：`7.2.1-69057 Update 11`
-- 局域网 IP：`192.168.1.153`
-- `Container Manager` 可安装，但当前未安装
-- DSM 当前有存储警告，部署前必须先确认原因
-
-## 当前阶段目标
-
-1. 处理 NAS 存储警告，确认卷和硬盘状态不会影响试点。
-2. 创建 RAG 专用只读账号 `rag_reader`。
-3. 只读扫描三个目录，生成文件清单。
-4. 统计目录大小、文件数量、文件类型、候选文件和排除文件。
-5. 为后续外部服务器 RAG 部署准备固定挂载路径和评估集模板。
-
-## 目录结构
+## 数据链路
 
 ```text
-enterprise-nas-rag/
-  configs/
-    knowledge_bases.yaml
-    exclude_patterns.yaml
-    permissions.yaml
-  scripts/
-    scan_nas.py
-  data/
-    inventory/
-    samples/
-    eval/
-  docs/
-  compose/
-  README.md
-  requirements.txt
+Synology NAS：采购 / 销售 / 产品设计
+                │ 只读挂载
+                ▼
+文件扫描与内容指纹
+                │
+                ├────▶ 清单、样本、权限与排除规则
+                │
+                ▼
+幂等增量同步与业务元数据
+                │
+                ├────▶ Excel 行级 FTS 精查
+                │
+                ▼
+RAGFlow：解析、切片、向量与全文检索
+                │
+                ▼
+检索过滤 / 重排 / 有证据回答 / 无证据拒答
+                │
+                ├────▶ 自动回归评测
+                ▼
+Waimao 内部知识门户
 ```
 
-## 安装依赖
+## 设计原则
 
-```powershell
-cd D:\letouch\enterprise-nas-rag
-python -m pip install -r .\requirements.txt
+- **源数据只读**：索引和解析都是派生数据，不写回 NAS 原文件。
+- **权限先于检索**：先按知识库和权限组过滤，再进行召回与生成。
+- **内容变更优先**：新增和修改优先于历史元数据迁移。
+- **历史不自动删除**：来源中消失的文档标记状态，等待人工确认。
+- **证据优先**：回答必须附来源；没有足够证据时拒答。
+- **评测驱动**：失败进入检索优化清单，不通过修改标准答案“提高”结果。
+
+## 快速开始：只读扫描
+
+创建环境并安装基础依赖：
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
-## 配置扫描路径
+编辑 [configs/knowledge_bases.yaml](configs/knowledge_bases.yaml)，将每个 `local_scan_path` 指向只读挂载目录。先进行限制数量的试跑：
 
-编辑 `configs/knowledge_bases.yaml`。
-
-如果是在外部 Linux 服务器上扫描，推荐把 NAS 目录只读挂载到：
-
-```text
-/mnt/nas/PUR-SHR
-/mnt/nas/SALES-SHR
-/mnt/nas/product-design
+```bash
+python scripts/scan_nas.py --max-files 100
+python scripts/sample_files.py --per-kb 100
 ```
 
-如果是在 Windows 临时测试，可以把 `local_scan_path` 改成实际映射盘路径，例如：
+正式扫描可以使用快速内容指纹；需要完整指纹时增加 `--sha256`：
 
-```yaml
-local_scan_path: "Z:/PUR-SHR"
+```bash
+python scripts/scan_nas.py
+python scripts/scan_nas.py --sha256
 ```
 
-默认脚本不会修改 NAS 文件。
-
-## 运行只读扫描
-
-首次试跑建议限制数量：
-
-```powershell
-python .\scripts\scan_nas.py --max-files 100
-```
-
-正式扫描使用快速 hash：
-
-```powershell
-python .\scripts\scan_nas.py
-```
-
-如果数据量较小且需要完整文件指纹，可使用完整 SHA256：
-
-```powershell
-python .\scripts\scan_nas.py --sha256
-```
-
-输出文件：
+典型输出：
 
 ```text
 data/inventory/file_inventory.csv
 data/inventory/file_inventory.sqlite3
 data/inventory/summary.md
-```
-
-## 生成样本计划
-
-扫描清单生成后，可以从候选文件里抽样：
-
-```powershell
-python .\scripts\sample_files.py --per-kb 100
-```
-
-输出文件：
-
-```text
 data/samples/sample_plan.csv
 data/samples/sample_plan.md
 ```
 
-## 运行测试
+## 增量同步与评测
 
-```powershell
-python -m unittest discover -s tests -p "test_*.py"
+Mac 外部计算节点的任务入口包括：
+
+- `scripts/run_incremental_sync.sh`：执行当前 NAS 到 RAGFlow 的增量同步；
+- `scripts/run_excel_row_index_refresh.sh`：刷新 Excel 行级索引；
+- `scripts/run_automated_evaluation.sh`：运行来源覆盖和业务准确性评测；
+- `launchd/com.waimao.*.plist`：定时任务模板，安装前必须替换示例账号路径。
+
+完整状态模型、保留策略、批次限制和日志位置见[知识库同步与自动评测运维说明](docs/知识库同步与自动评测运维说明.md)。
+
+## 内部知识门户
+
+[内部知识门户](apps/internal-portal/) 使用 React + FastAPI 构建，浏览器不保存 RAGFlow API Key。门户提供：
+
+- 采购、销售和产品设计三个固定业务入口；
+- 带来源引用的问答与用户隔离的历史会话；
+- 当前增量同步状态、知识库计数和自动评测结果；
+- `trusted_lan` 与企业微信认证适配路径；
+- 不暴露 RAGFlow 管理后台，也不能从门户执行 Docker 或修改知识库。
+
+```bash
+cd apps/internal-portal
+npm install
+npm run build
 ```
 
-## 清单字段
+正式部署步骤与代理 Token 生成见[门户说明](apps/internal-portal/README.md)。
+
+## 仓库结构
 
 ```text
-knowledge_base
-knowledge_base_id
-nas_path
-scan_path
-relative_path
-filename
-extension
-file_size_bytes
-modified_time
-sha256_or_fast_hash
-is_candidate
-exclude_reason
-parse_status
-permission_group
+configs/                 知识库、排除、权限、Excel 索引配置
+scripts/                 扫描、同步、检索、诊断、评测与运维脚本
+apps/internal-portal/    React 门户与 FastAPI 只读代理
+data/eval/               来源覆盖与业务准确性评测集
+launchd/                 macOS 定时任务模板
+docs/                    设计决策、部署记录、验证记录与运维说明
+tests/                   扫描、索引、同步策略、门户和运维测试
 ```
 
-## 第一版纳入和排除规则
+## 验证
 
-优先纳入：
-
-```text
-.docx
-.xlsx
-.pptx
-.pdf
-.txt
-.md
-.csv
+```bash
+python3 -m unittest discover -s tests -p "test_*.py"
+npm --prefix apps/internal-portal install
+npm --prefix apps/internal-portal run build
 ```
 
-默认排除：
+## 安全与隐私边界
 
-```text
-~$*
-*.tmp
-*.bak
-*.exe
-*.dll
-*.zip
-*.rar
-*.7z
-__MACOSX/
-回收站/
-临时/
-草稿/
-```
+- RAGFlow Token、企业微信 Secret 和会话密钥必须放在未跟踪的 Secret 文件中。
+- 示例 IP、路径、数据集 ID 和助手 ID 不能直接用于新的生产环境。
+- 内网信任模式依赖网络隔离和主机防火墙，不能等同于完整身份认证。
+- 真实文档名可能包含业务品牌或历史证据，不应通过机械替换破坏评测来源。
+- 门户和脚本不能替代 NAS 权限、备份、审计、密钥轮换和灾难恢复。
 
-## NAS 上允许和禁止运行的内容
+## 局限
 
-允许在 NAS 上运行：
+- 解析、OCR、Embedding、Reranker 和模型质量由外部 RAGFlow 与模型配置决定。
+- Excel 行级检索解决结构化精查问题，但不能覆盖所有复杂公式和跨表业务逻辑。
+- 仓库包含特定环境的演进记录，新部署需要重新做容量、权限与评估设计。
+- 评测通过率只代表当前固定用例，不代表所有企业问题都能正确回答。
 
-- 文件清单查看页
-- 扫描任务触发器
-- 日志查看
-- 小规模样本测试
+## License
 
-第一阶段不在 NAS 上运行：
-
-- RAGFlow 全套
-- 本地大模型
-- 大规模 OCR
-- 大规模 embedding
-- Elasticsearch / OpenSearch
-- Milvus
-
-## 后续外部服务器默认架构
-
-NAS 只作为资料源，外部服务器负责重计算：
-
-```text
-NAS 只读挂载
-  -> 文档解析
-  -> OCR
-  -> embedding
-  -> reranker
-  -> 向量库
-  -> 全文索引
-  -> LLM 调用
-  -> RAG Web/API
-```
-
-推荐最低服务器：
-
-```text
-CPU: 8 核以上
-RAM: 32GB
-Disk: 1TB NVMe
-OS: Ubuntu Server
-```
-
-推荐正式服务器：
-
-```text
-CPU: 12-16 核
-RAM: 64GB
-Disk: 2TB NVMe
-GPU: 可选，取决于是否本地跑 OCR/embedding/LLM
-```
-
-## 验收标准
-
-1. `rag_reader` 只能读取三个知识库目录，不能访问其他目录。
-2. 外部机器可通过 SMB/NFS 只读挂载三个目录。
-3. 扫描不修改任何 NAS 原文件。
-4. `file_inventory.csv`、`file_inventory.sqlite3`、`summary.md` 正常生成。
-5. `summary.md` 使用中文列出目录大小、文件数量、文件类型分布、候选文件、排除文件和最大文件。
-6. 每个知识库至少抽样 100 个候选文件。
-7. 每个知识库至少准备 20 条评估问题。
-
-## 下一步
-
-1. 在 DSM 存储管理器中确认存储警告原因。
-2. 加装官方兼容 4GB 内存，把 NAS 提升到 6GB。
-3. 安装 Container Manager，仅用于轻量工具。
-4. 创建 `rag_reader` 只读账号。
-5. 配置 SMB/NFS，并让外部服务器只读挂载三个目录。
-6. 运行 `scripts/scan_nas.py` 生成第一版文件清单。
+仓库当前未声明开源许可证。未获得权利人明确许可前，请不要假设可以复制、分发或用于商业部署。

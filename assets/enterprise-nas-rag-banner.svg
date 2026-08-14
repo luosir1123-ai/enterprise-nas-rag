@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+  <title id="title">Enterprise NAS RAG</title>
+  <desc id="desc">Read-only NAS ingestion, structured retrieval, evaluation, and internal knowledge portal.</desc>
+  <rect width="1200" height="300" rx="8" fill="#17222b"/>
+  <rect width="12" height="300" fill="#22c55e"/>
+  <rect x="70" y="70" width="160" height="160" rx="10" fill="#263845" stroke="#64748b" stroke-width="3"/>
+  <rect x="92" y="94" width="116" height="34" rx="5" fill="#334b59"/>
+  <circle cx="188" cy="111" r="6" fill="#4ade80"/>
+  <rect x="92" y="140" width="116" height="34" rx="5" fill="#334b59"/>
+  <circle cx="188" cy="157" r="6" fill="#4ade80"/>
+  <rect x="92" y="186" width="116" height="22" rx="5" fill="#1f6b4f"/>
+  <path d="M260 150h94m-16-16 16 16-16 16" fill="none" stroke="#86efac" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="415" cy="150" r="58" fill="#203a39" stroke="#2dd4bf" stroke-width="3"/>
+  <circle cx="390" cy="128" r="9" fill="#4ade80"/>
+  <circle cx="443" cy="120" r="9" fill="#2dd4bf"/>
+  <circle cx="430" cy="177" r="9" fill="#f8fafc"/>
+  <path d="M399 126l35-4M395 136l28 34M440 129l-8 39" fill="none" stroke="#a7f3d0" stroke-width="4"/>
+  <text x="520" y="109" fill="#ffffff" font-family="Arial, sans-serif" font-size="50" font-weight="700">Enterprise NAS RAG</text>
+  <text x="522" y="151" fill="#b8d5cc" font-family="Arial, sans-serif" font-size="21">Incremental sync, structured retrieval and evidence-backed answers</text>
+  <rect x="522" y="190" width="116" height="32" rx="5" fill="#1e4b3c" stroke="#4ade80"/>
+  <text x="541" y="212" fill="#dcfce7" font-family="Arial, sans-serif" font-size="14">READ-ONLY NAS</text>
+  <rect x="652" y="190" width="121" height="32" rx="5" fill="#164e63" stroke="#22d3ee"/>
+  <text x="672" y="212" fill="#cffafe" font-family="Arial, sans-serif" font-size="14">EXCEL + RAG</text>
+  <rect x="787" y="190" width="118" height="32" rx="5" fill="#3b315b" stroke="#a78bfa"/>
+  <text x="807" y="212" fill="#ede9fe" font-family="Arial, sans-serif" font-size="14">EVALUATED</text>
+</svg>

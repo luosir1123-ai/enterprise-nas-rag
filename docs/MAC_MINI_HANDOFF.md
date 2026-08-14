@@ -7,7 +7,7 @@
 当前 Windows 工作区项目路径：
 
 ```text
-D:\letouch\enterprise-nas-rag
+D:\workspace\enterprise-nas-rag
 ```
 
 当前已完成内容：

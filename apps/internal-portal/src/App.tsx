@@ -216,7 +216,7 @@ function App() {
   if (!authReady) {
     return (
       <div className="auth-loading" role="status">
-        <img src="/internal/letouch-logo.svg" alt="LeTouch" />
+        <img src="/internal/waimao-logo.svg" alt="Waimao" />
         <span>正在验证企业身份</span>
       </div>
     );
@@ -375,7 +375,7 @@ function App() {
     <div className="app-shell">
       <aside className={`sidebar ${mobileMenuOpen ? 'sidebar-open' : ''}`}>
         <div className="brand-row">
-          <img src="/internal/letouch-logo.svg" alt="LeTouch" className="brand-logo" />
+          <img src="/internal/waimao-logo.svg" alt="Waimao" className="brand-logo" />
           <button className="icon-button mobile-only" onClick={() => setMobileMenuOpen(false)} aria-label="关闭菜单" title="关闭菜单">
             <X size={19} />
           </button>
@@ -596,7 +596,7 @@ function OperationsDashboard({ operations, loading }: { operations: OperationsSt
 
       <section className="ops-section">
         <div className="ops-section-heading">
-          <div><h2>知识库同步</h2><p>{sync?.source_nas_name ?? 'LeTouch NAS'}</p></div>
+          <div><h2>知识库同步</h2><p>{sync?.source_nas_name ?? 'Waimao NAS'}</p></div>
           <StatusLabel state={sync?.state} />
         </div>
         {sync?.datasets?.length ? (
@@ -685,7 +685,7 @@ function Message({ message, onShowReferences }: { message: ChatMessage; onShowRe
     <div className={`message-row assistant-message ${message.error ? 'error-message' : ''}`}>
       <div className="message-avatar"><Bot size={18} /></div>
       <div className="message-body">
-        <div className="message-author">LeTouch AI</div>
+        <div className="message-author">Waimao AI</div>
         {message.pending && !message.content ? (
           <div className="thinking"><span /><span /><span />正在检索资料</div>
         ) : (
@@ -782,7 +782,7 @@ function DocumentViewer() {
     <div className="document-viewer">
       <header className="document-viewer-header">
         <div>
-          <div className="document-viewer-kicker">LeTouch 知识中心</div>
+          <div className="document-viewer-kicker">Waimao 知识中心</div>
           <h1>{name}</h1>
         </div>
         <div className="document-viewer-actions">

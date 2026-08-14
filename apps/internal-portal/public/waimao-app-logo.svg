@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="750" viewBox="0 0 750 750" role="img" aria-labelledby="title desc">
+  <title id="title">Waimao Knowledge</title>
+  <desc id="desc">Knowledge nodes connected inside a dark green app tile.</desc>
+  <rect width="750" height="750" rx="120" fill="#183d33"/>
+  <circle cx="260" cy="260" r="58" fill="#84cc16"/>
+  <circle cx="505" cy="230" r="58" fill="#2dd4bf"/>
+  <circle cx="390" cy="505" r="58" fill="#f8fafc"/>
+  <path d="M312 254l135-17M287 310l71 145M478 282l-64 167" fill="none" stroke="#d9f99d" stroke-width="34" stroke-linecap="round"/>
+  <text x="375" y="665" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="72" font-weight="700">WAIMAO</text>
+</svg>

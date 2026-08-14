@@ -75,7 +75,7 @@ LT-G20大理石的单价为￥26.00 [ID:0]。
 本地保留补丁文件：
 
 ```text
-D:\letouch\enterprise-nas-rag\patches\chat_model.py
+D:\workspace\enterprise-nas-rag\patches\chat_model.py
 ```
 
 修改逻辑：

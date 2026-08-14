@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.letouch.ragflow-excel-row-index</string>
+  <string>com.waimao.nas-rag-mount</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/letouch/Library/Application Support/letouch-ragflow/run_excel_row_index_refresh.sh</string>
+    <string>/usr/local/sbin/letouch-nas-rag-mount.sh</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>
-  <integer>1800</integer>
+  <integer>300</integer>
   <key>StandardOutPath</key>
-  <string>/Users/letouch/Library/Logs/letouch-ragflow/excel_row_index/launchd.out.log</string>
+  <string>/var/log/letouch-nas-rag-mount.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/letouch/Library/Logs/letouch-ragflow/excel_row_index/launchd.err.log</string>
+  <string>/var/log/letouch-nas-rag-mount.err.log</string>
 </dict>
 </plist>

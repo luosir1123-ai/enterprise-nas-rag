@@ -1,11 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-INSTALL_ROOT="${RAGFLOW_SYNC_INSTALL_ROOT:-/Users/letouch/Library/Application Support/letouch-ragflow}"
-RUN_ROOT="${RAGFLOW_SYNC_RUN_ROOT:-/Users/letouch/Library/Logs/letouch-ragflow/incremental_sync}"
+INSTALL_ROOT="${RAGFLOW_SYNC_INSTALL_ROOT:-${HOME}/Library/Application Support/waimao-ragflow}"
+RUN_ROOT="${RAGFLOW_SYNC_RUN_ROOT:-${HOME}/Library/Logs/waimao-ragflow/incremental_sync}"
 MOUNT_DIR="/Users/Shared/nas/LE_TOUCH_SHR"
 CONTAINER="docker-ragflow-cpu-1"
-LOCK_DIR="/tmp/letouch-ragflow-incremental-sync.lock"
+LOCK_DIR="/tmp/waimao-ragflow-incremental-sync.lock"
 DOCKER="/usr/local/bin/docker"
 
 mkdir -p "$RUN_ROOT"
