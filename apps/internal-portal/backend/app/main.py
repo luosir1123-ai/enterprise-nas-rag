@@ -87,7 +87,7 @@ ASSISTANT_CHAT_IDS = {
 def _networks() -> list[ipaddress._BaseNetwork]:
     configured = os.getenv(
         "TRUSTED_NETWORKS",
-        "127.0.0.1/32,::1/128,192.168.1.0/24,192.168.50.0/24,192.168.65.0/24",
+        "127.0.0.1/32,::1/128,192.0.2.0/24,198.51.100.0/24,203.0.113.0/24",
     )
     networks: list[ipaddress._BaseNetwork] = []
     for item in configured.split(","):

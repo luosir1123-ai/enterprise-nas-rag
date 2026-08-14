@@ -29,7 +29,7 @@ D:\workspace\enterprise-nas-rag
 旧服务器：
 
 ```text
-172.21.238.68
+192.0.2.68
 ```
 
 旧服务器上 RAGFlow 相关服务：
@@ -180,13 +180,13 @@ ipconfig getifaddr en0
 确认能访问 NAS：
 
 ```bash
-ping -c 4 192.168.1.153
+ping -c 4 192.0.2.153
 ```
 
 确认 NAS 暴露 NFS：
 
 ```bash
-showmount -e 192.168.1.153
+showmount -e 192.0.2.153
 ```
 
 运行项目自带检查脚本：
@@ -200,8 +200,8 @@ chmod +x scripts/macmini_nfs_check.sh
 成功标准：
 
 - Mac mini 拿到公司内网 IP。
-- 能 ping 通 `192.168.1.153`。
-- `showmount -e 192.168.1.153` 能看到 NAS 导出目录。
+- 能 ping 通 `192.0.2.153`。
+- `showmount -e 192.0.2.153` 能看到 NAS 导出目录。
 - `/Users/Shared/nas/LE_TOUCH_SHR` 能看到三个业务目录。
 - 写入测试失败，说明挂载是只读。
 
@@ -292,7 +292,7 @@ codex
 
 目标：
 1. 不修改 NAS 原始文件。
-2. 先验证 Mac mini 是否通过有线内网访问 NAS 192.168.1.153。
+2. 先验证 Mac mini 是否通过有线内网访问 NAS 192.0.2.153。
 3. 验证 NFS 只读挂载到 /Users/Shared/nas/LE_TOUCH_SHR。
 4. 如果 NFS 未成功，停止并给出具体网络或 DSM 配置问题，不要继续部署 RAG。
 5. 如果 NFS 成功，运行 scripts/scan_nas.py 使用 configs/knowledge_bases.macmini.yaml 先扫描 100 个文件。
@@ -301,7 +301,7 @@ codex
 8. 再评估是否在 Mac mini 上部署 RAGFlow；注意 Mac mini 是 Apple Silicon，不能假设旧服务器 x86 RAGFlow 镜像可直接运行。
 
 当前重要背景：
-- NAS IP 是 192.168.1.153。
+- NAS IP 是 192.0.2.153。
 - NAS 共享目录是 LE TOUCH SHR。
 - 三个业务目录是 PUR-SHR、SALES-SHR、产品设计成果(2021年起)。
 - 旧 Ubuntu 服务器上 RAGFlow 已验证过，但 SMB 远程挂载慢；采购 Mac mini 的原因是通过公司内网 NFS 提速。
@@ -316,8 +316,8 @@ codex
 只要出现以下任一情况，就先停止，不要继续部署 RAGFlow：
 
 - Mac mini 没有拿到公司内网 IP。
-- Mac mini ping 不通 `192.168.1.153`。
-- `showmount -e 192.168.1.153` 看不到 NAS 导出目录。
+- Mac mini ping 不通 `192.0.2.153`。
+- `showmount -e 192.0.2.153` 看不到 NAS 导出目录。
 - NFS 挂载后看不到三个业务目录。
 - 挂载不是只读。
 - 扫描脚本无法读取三个目录。

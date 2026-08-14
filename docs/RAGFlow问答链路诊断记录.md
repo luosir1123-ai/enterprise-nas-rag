@@ -33,7 +33,7 @@ LT-G20大理石的单价为￥26.00 [ID:0]。
 ## 已完成
 
 1. NAS 三目录已经作为资料源接入 Ubuntu 服务器。
-2. RAGFlow 已部署在 Ubuntu 服务器 `172.21.238.68`。
+2. RAGFlow 已部署在 Ubuntu 服务器 `192.0.2.68`。
 3. RAGFlow 容器、MySQL、Elasticsearch、MinIO、Redis 均处于运行状态。
 4. 已创建三个知识库：
    - 采购知识库
@@ -111,7 +111,7 @@ Token speed: 11/s
 
 页面端也已通过：
 
-1. 打开 `http://172.21.238.68/chat/5dc6373c746011f1b4e439a2bb3fe40b`
+1. 打开 `http://192.0.2.68/chat/<redacted-id>`
 2. 输入 `LT-G20大理石 单价多少？`
 3. 页面正常返回价格，并显示来源文件。
 

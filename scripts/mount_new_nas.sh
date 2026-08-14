@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-NAS_IP="192.168.1.90"
+NAS_IP="192.0.2.90"
 NFS_EXPORT="/volume1/LE TOUCH SHR"
 MOUNT_DIR="/Users/Shared/nas/LE_TOUCH_SHR"
 

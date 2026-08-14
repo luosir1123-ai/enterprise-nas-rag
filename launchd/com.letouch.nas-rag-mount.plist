@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.waimao.ragflow-nas-sync</string>
+  <string>com.letouch.nas-rag-mount</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/your-account/Library/Application Support/waimao-ragflow/run_incremental_sync.sh</string>
+    <string>/usr/local/sbin/letouch-nas-rag-mount.sh</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>
-  <integer>3600</integer>
+  <integer>300</integer>
   <key>StandardOutPath</key>
-  <string>/Users/your-account/Library/Logs/waimao-ragflow/incremental_sync/launchd.out.log</string>
+  <string>/var/log/letouch-nas-rag-mount.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/your-account/Library/Logs/waimao-ragflow/incremental_sync/launchd.err.log</string>
+  <string>/var/log/letouch-nas-rag-mount.err.log</string>
 </dict>
 </plist>

@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.waimao.ragflow-excel-row-index</string>
+  <string>com.letouch.ragflow-nas-sync</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/your-account/Library/Application Support/waimao-ragflow/run_excel_row_index_refresh.sh</string>
+    <string>/Users/your-account/Library/Application Support/letouch-ragflow/run_incremental_sync.sh</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>
-  <integer>1800</integer>
+  <integer>3600</integer>
   <key>StandardOutPath</key>
-  <string>/Users/your-account/Library/Logs/waimao-ragflow/excel_row_index/launchd.out.log</string>
+  <string>/Users/your-account/Library/Logs/letouch-ragflow/incremental_sync/launchd.out.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/your-account/Library/Logs/waimao-ragflow/excel_row_index/launchd.err.log</string>
+  <string>/Users/your-account/Library/Logs/letouch-ragflow/incremental_sync/launchd.err.log</string>
 </dict>
 </plist>

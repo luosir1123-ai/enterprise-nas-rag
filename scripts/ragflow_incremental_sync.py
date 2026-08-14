@@ -45,7 +45,7 @@ APPLY = os.getenv("RAGFLOW_SYNC_APPLY", "0").lower() in {"1", "true", "yes", "y"
 PARSE = os.getenv("RAGFLOW_SYNC_PARSE", "1").lower() in {"1", "true", "yes", "y"}
 MAX_CHANGES = int(os.getenv("RAGFLOW_SYNC_MAX_CHANGES", "100"))
 MAX_BYTES = int(os.getenv("RAGFLOW_SYNC_MAX_BYTES", str(500 * 1024 * 1024)))
-SOURCE_NAS_ID = os.getenv("RAGFLOW_SYNC_SOURCE_ID", "synology-192.168.1.90").strip()
+SOURCE_NAS_ID = os.getenv("RAGFLOW_SYNC_SOURCE_ID", "synology-192.0.2.90").strip()
 SOURCE_NAS_NAME = os.getenv("RAGFLOW_SYNC_SOURCE_NAME", "LeTouch NAS 2026").strip()
 
 ALLOWED_SUFFIXES = {".docx", ".xlsx", ".xlsm", ".pptx", ".pdf", ".txt", ".md", ".csv"}

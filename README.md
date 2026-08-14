@@ -114,7 +114,7 @@ Mac 外部计算节点的任务入口包括：
 - `scripts/run_incremental_sync.sh`：执行当前 NAS 到 RAGFlow 的增量同步；
 - `scripts/run_excel_row_index_refresh.sh`：刷新 Excel 行级索引；
 - `scripts/run_automated_evaluation.sh`：运行来源覆盖和业务准确性评测；
-- `launchd/com.waimao.*.plist`：定时任务模板，安装前必须替换示例账号路径。
+- `launchd/com.letouch.*.plist`：定时任务模板，安装前必须替换示例账号路径。
 
 完整状态模型、保留策略、批次限制和日志位置见[知识库同步与自动评测运维说明](docs/知识库同步与自动评测运维说明.md)。
 

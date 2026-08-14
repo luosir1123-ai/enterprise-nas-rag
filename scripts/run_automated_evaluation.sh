@@ -1,10 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-INSTALL_ROOT="${RAGFLOW_EVAL_INSTALL_ROOT:-${HOME}/Library/Application Support/waimao-ragflow}"
-RUN_ROOT="${RAGFLOW_EVAL_RUN_ROOT:-${HOME}/Library/Logs/waimao-ragflow/evaluation}"
+INSTALL_ROOT="${RAGFLOW_EVAL_INSTALL_ROOT:-${HOME}/Library/Application Support/letouch-ragflow}"
+RUN_ROOT="${RAGFLOW_EVAL_RUN_ROOT:-${HOME}/Library/Logs/letouch-ragflow/evaluation}"
 CONTAINER="docker-ragflow-cpu-1"
-LOCK_DIR="/tmp/waimao-ragflow-evaluation.lock"
+LOCK_DIR="/tmp/letouch-ragflow-evaluation.lock"
 DOCKER="/usr/local/bin/docker"
 
 mkdir -p "$RUN_ROOT"

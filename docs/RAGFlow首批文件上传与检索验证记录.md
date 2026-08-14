@@ -22,8 +22,8 @@ NAS 只读挂载
 RAGFlow 部署在 Ubuntu 服务器：
 
 ```text
-服务器 IP: 172.21.238.68
-RAGFlow 地址: http://172.21.238.68/
+服务器 IP: 192.0.2.68
+RAGFlow 地址: http://192.0.2.68/
 RAGFlow 容器: docker-ragflow-cpu-1
 RAGFlow 项目路径: /data/home/lxd2/ragflow
 ```

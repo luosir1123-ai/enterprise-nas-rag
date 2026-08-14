@@ -15,10 +15,10 @@
 服务器地址：
 
 ```text
-172.21.238.68
+192.0.2.68
 ```
 
-已经确认可以通过 SSH 密钥登录 `root@172.21.238.68`。
+已经确认可以通过 SSH 密钥登录 `root@192.0.2.68`。
 
 ### 2. NAS 目录已经接入服务器
 
@@ -193,8 +193,8 @@ RAGFlow API 端口：
 本机到服务器端口连通性已经验证：
 
 ```text
-172.21.238.68:80   TcpTestSucceeded=True
-172.21.238.68:9380 TcpTestSucceeded=True
+192.0.2.68:80   TcpTestSucceeded=True
+192.0.2.68:9380 TcpTestSucceeded=True
 ```
 
 服务器本机访问 RAGFlow 首页返回：
@@ -206,7 +206,7 @@ HTTP/1.1 200 OK
 访问地址：
 
 ```text
-http://172.21.238.68/
+http://192.0.2.68/
 ```
 
 ## 当前还没完成的内容
@@ -356,7 +356,7 @@ docker-compose.cn-images.yml  # 国内镜像源
 浏览器访问：
 
 ```text
-http://172.21.238.68/
+http://192.0.2.68/
 ```
 
 先完成账号注册或登录。

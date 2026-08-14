@@ -1,11 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-INSTALL_ROOT="${RAGFLOW_SYNC_INSTALL_ROOT:-${HOME}/Library/Application Support/waimao-ragflow}"
-RUN_ROOT="${RAGFLOW_SYNC_RUN_ROOT:-${HOME}/Library/Logs/waimao-ragflow/incremental_sync}"
+INSTALL_ROOT="${RAGFLOW_SYNC_INSTALL_ROOT:-${HOME}/Library/Application Support/letouch-ragflow}"
+RUN_ROOT="${RAGFLOW_SYNC_RUN_ROOT:-${HOME}/Library/Logs/letouch-ragflow/incremental_sync}"
 MOUNT_DIR="/Users/Shared/nas/LE_TOUCH_SHR"
 CONTAINER="docker-ragflow-cpu-1"
-LOCK_DIR="/tmp/waimao-ragflow-incremental-sync.lock"
+LOCK_DIR="/tmp/letouch-ragflow-incremental-sync.lock"
 DOCKER="/usr/local/bin/docker"
 
 mkdir -p "$RUN_ROOT"
@@ -36,7 +36,7 @@ fi
 "$DOCKER" cp "$INSTALL_ROOT/excel_row_index.json" "$CONTAINER:/tmp/excel_row_index.json"
 
 "$DOCKER" exec "$CONTAINER" sh -lc \
-  "cd /ragflow && PYTHONPATH=/tmp:/ragflow RAGFLOW_SYNC_APPLY=${RAGFLOW_SYNC_APPLY:-1} RAGFLOW_SYNC_PARSE=${RAGFLOW_SYNC_PARSE:-1} RAGFLOW_SYNC_MAX_CHANGES=${RAGFLOW_SYNC_MAX_CHANGES:-300} RAGFLOW_SYNC_MAX_BYTES=${RAGFLOW_SYNC_MAX_BYTES:-524288000} RAGFLOW_SYNC_SOURCE_ID=${RAGFLOW_SYNC_SOURCE_ID:-synology-192.168.1.90} RAGFLOW_SYNC_SOURCE_NAME='${RAGFLOW_SYNC_SOURCE_NAME:-LeTouch NAS 2026}' python /tmp/ragflow_incremental_sync.py" \
+  "cd /ragflow && PYTHONPATH=/tmp:/ragflow RAGFLOW_SYNC_APPLY=${RAGFLOW_SYNC_APPLY:-1} RAGFLOW_SYNC_PARSE=${RAGFLOW_SYNC_PARSE:-1} RAGFLOW_SYNC_MAX_CHANGES=${RAGFLOW_SYNC_MAX_CHANGES:-300} RAGFLOW_SYNC_MAX_BYTES=${RAGFLOW_SYNC_MAX_BYTES:-524288000} RAGFLOW_SYNC_SOURCE_ID=${RAGFLOW_SYNC_SOURCE_ID:-synology-192.0.2.90} RAGFLOW_SYNC_SOURCE_NAME='${RAGFLOW_SYNC_SOURCE_NAME:-LeTouch NAS 2026}' python /tmp/ragflow_incremental_sync.py" \
   > "$run_dir/run.log" 2>&1
 
 "$DOCKER" cp "$CONTAINER:/tmp/ragflow_incremental_sync_report.json" "$run_dir/report.json"

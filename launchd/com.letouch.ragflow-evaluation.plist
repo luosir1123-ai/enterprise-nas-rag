@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.waimao.ragflow-evaluation</string>
+  <string>com.letouch.ragflow-evaluation</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/your-account/Library/Application Support/waimao-ragflow/run_automated_evaluation.sh</string>
+    <string>/Users/your-account/Library/Application Support/letouch-ragflow/run_automated_evaluation.sh</string>
   </array>
   <key>StartCalendarInterval</key>
   <dict>
@@ -19,8 +19,8 @@
     <integer>10</integer>
   </dict>
   <key>StandardOutPath</key>
-  <string>/Users/your-account/Library/Logs/waimao-ragflow/evaluation/launchd.out.log</string>
+  <string>/Users/your-account/Library/Logs/letouch-ragflow/evaluation/launchd.out.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/your-account/Library/Logs/waimao-ragflow/evaluation/launchd.err.log</string>
+  <string>/Users/your-account/Library/Logs/letouch-ragflow/evaluation/launchd.err.log</string>
 </dict>
 </plist>

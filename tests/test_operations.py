@@ -19,7 +19,7 @@ from ragflow_business_acceptance import load_cases, required_term_matches, score
 
 class NasSyncPolicyTests(unittest.TestCase):
     def test_legacy_and_current_missing_documents_are_distinguished(self) -> None:
-        source_id = "synology-192.168.1.90"
+        source_id = "synology-192.0.2.90"
         legacy = {"source_generation": "legacy", "sync_status": "historical"}
         current = {"source_generation": "current", "source_nas_id": source_id, "sync_status": "active"}
         current_missing = {**current, "sync_status": "missing_from_source"}

@@ -32,9 +32,9 @@ NFS 只读挂载
 
 | 知识库 | RAGFlow ID | Embedding | Parser |
 |---|---|---|---|
-| 采购知识库 | `1f8ef26c79ea11f188ae0568c90e9371` | `text-embedding-v4@dashscope-text-embedding-v4@Tongyi-Qianwen` | `naive` |
-| 销售知识库 | `1f9106ec79ea11f188ae0568c90e9371` | `text-embedding-v4@dashscope-text-embedding-v4@Tongyi-Qianwen` | `naive` |
-| 产品设计知识库 | `1f91c47e79ea11f188ae0568c90e9371` | `text-embedding-v4@dashscope-text-embedding-v4@Tongyi-Qianwen` | `naive` |
+| 采购知识库 | `<redacted-id>` | `text-embedding-v4@dashscope-text-embedding-v4@Tongyi-Qianwen` | `naive` |
+| 销售知识库 | `<redacted-id>` | `text-embedding-v4@dashscope-text-embedding-v4@Tongyi-Qianwen` | `naive` |
+| 产品设计知识库 | `<redacted-id>` | `text-embedding-v4@dashscope-text-embedding-v4@Tongyi-Qianwen` | `naive` |
 
 ## 4. 上传与解析结果
 

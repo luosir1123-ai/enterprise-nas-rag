@@ -116,7 +116,7 @@ Mac mini 上第一阶段只验收以下内容：
 
 ```text
 1. 有线接入公司内网
-2. 能 ping 通 NAS 192.168.1.153
+2. 能 ping 通 NAS 192.0.2.153
 3. 能 showmount 查看 NAS NFS 导出
 4. 能只读挂载 /Users/Shared/nas/LE_TOUCH_SHR
 5. 能看到 PUR-SHR、SALES-SHR、产品设计成果(2021年起)

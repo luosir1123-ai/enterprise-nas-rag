@@ -26,8 +26,8 @@ NAS 只读目录
 之前由于 Windows、SSH、Linux shell 多层传输时中文编码被破坏，RAGFlow 中出现过两个乱码知识库：
 
 ```text
-f24136dc746511f1813dbb5488a3bb02
-f242fc06746511f1813dbb5488a3bb02
+<redacted-id>
+<redacted-id>
 ```
 
 本次已经通过 RAGFlow 服务层删除，结果：
@@ -45,9 +45,9 @@ success_count: 2
 
 | 逻辑目录 | RAGFlow 知识库 | 知识库 ID | 当前状态 |
 |---|---|---|---|
-| `PUR-SHR` | 采购知识库 | `1abd8f14746811f1babb0fa8245e019d` | 已创建，当前无样本文档 |
-| `SALES-SHR` | 销售知识库 | `1abffede746811f1babb0fa8245e019d` | 已创建，已导入样本 |
-| `产品设计成果(2021年起)` | 产品设计知识库 | `1ac1d722746811f1babb0fa8245e019d` | 已创建，已导入样本 |
+| `PUR-SHR` | 采购知识库 | `<redacted-id>` | 已创建，当前无样本文档 |
+| `SALES-SHR` | 销售知识库 | `<redacted-id>` | 已创建，已导入样本 |
+| `产品设计成果(2021年起)` | 产品设计知识库 | `<redacted-id>` | 已创建，已导入样本 |
 
 三个知识库统一使用：
 

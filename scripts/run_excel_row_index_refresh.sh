@@ -1,11 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
-INSTALL_ROOT="${RAGFLOW_SYNC_INSTALL_ROOT:-${HOME}/Library/Application Support/waimao-ragflow}"
-RUN_ROOT="${RAGFLOW_EXCEL_INDEX_RUN_ROOT:-${HOME}/Library/Logs/waimao-ragflow/excel_row_index}"
+INSTALL_ROOT="${RAGFLOW_SYNC_INSTALL_ROOT:-${HOME}/Library/Application Support/letouch-ragflow}"
+RUN_ROOT="${RAGFLOW_EXCEL_INDEX_RUN_ROOT:-${HOME}/Library/Logs/letouch-ragflow/excel_row_index}"
 CONTAINER="${RAGFLOW_CONTAINER:-docker-ragflow-cpu-1}"
 DATABASE="/ragflow/structured-index/excel_rows.sqlite3"
-LOCK_DIR="/tmp/waimao-ragflow-excel-row-index.lock"
+LOCK_DIR="/tmp/letouch-ragflow-excel-row-index.lock"
 DOCKER="/usr/local/bin/docker"
 
 mkdir -p "$RUN_ROOT"

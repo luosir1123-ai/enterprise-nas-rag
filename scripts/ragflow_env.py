@@ -8,7 +8,7 @@ from common.constants import StatusEnum
 from api.db import db_models
 
 
-DEFAULT_TENANT_EMAIL = "3307608589@qq.com"
+DEFAULT_TENANT_EMAIL = "user@example.com"
 
 
 def get_target_user_email() -> str:

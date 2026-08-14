@@ -63,7 +63,7 @@ Configure read-only mount paths in [configs/knowledge_bases.yaml](configs/knowle
 - `scripts/run_incremental_sync.sh`: synchronize current NAS changes into RAGFlow.
 - `scripts/run_excel_row_index_refresh.sh`: refresh structured Excel-row retrieval.
 - `scripts/run_automated_evaluation.sh`: run source-coverage and business-accuracy suites.
-- `launchd/com.waimao.*.plist`: macOS scheduler templates; replace account-path placeholders before installation.
+- `launchd/com.letouch.*.plist`: macOS scheduler templates; replace account-path placeholders before installation.
 - [apps/internal-portal](apps/internal-portal/): React portal and FastAPI read-only proxy.
 
 ## Checks
