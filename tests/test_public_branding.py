@@ -37,7 +37,7 @@ class PublicBrandingTests(unittest.TestCase):
             for home_path in re.findall(r"/Users/[^/\s]+", content):
                 if home_path not in {"/Users/Shared", "/Users/your-account"}:
                     findings.append(f"home-path:{relative_path}")
-            if relative_path.parts[0] == "docs" and DEPLOYMENT_ID.search(content):
+            if DEPLOYMENT_ID.search(content):
                 findings.append(f"deployment-id:{relative_path}")
         self.assertEqual([], findings)
 

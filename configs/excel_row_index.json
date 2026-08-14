@@ -13,14 +13,14 @@
     {
       "knowledge_base_key": "purchase",
       "knowledge_base_name": "采购知识库",
-      "document_id": "ea3ec51e7a8511f1b9c3e56e44adedec",
+      "document_id": "<configure-purchase-document-id>",
       "document_name": "2026年古石产品报价单6月16号更新.xlsx",
       "reason": "采购报价型号、阶梯数量和价格"
     },
     {
       "knowledge_base_key": "sales",
       "knowledge_base_name": "销售知识库",
-      "document_id": "327ca6c27a8911f1b9c3e56e44adedec",
+      "document_id": "<configure-sales-document-id>",
       "document_name": "有成本 - 2025 Spring Catalog- LeTouch -202504.xlsx",
       "reason": "销售目录型号、MOQ、供应商、成本和报价"
     }

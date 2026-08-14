@@ -78,9 +78,9 @@ _wecom_token_expires_at = 0.0
 _wecom_token_lock = asyncio.Lock()
 
 ASSISTANT_CHAT_IDS = {
-    "purchase": "b12c3984841511f1b6171536aff2886e",
-    "sales": "1077ccfa841611f1b6171536aff2886e",
-    "product": "97347fe67aab11f19289392309541330",
+    "purchase": "<configure-purchase-chat-id>",
+    "sales": "<configure-sales-chat-id>",
+    "product": "<configure-product-chat-id>",
 }
 
 

@@ -10,7 +10,7 @@ from api.db.services.dialog_service import DialogService, async_chat
 from common import settings
 
 
-CHAT_ID = "5dc6373c746011f1b4e439a2bb3fe40b"
+CHAT_ID = "<configure-RAGFLOW_CHAT_ID>"
 
 
 async def main() -> None:

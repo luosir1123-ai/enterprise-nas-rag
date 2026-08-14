@@ -25,7 +25,7 @@ from common import settings
 from common.constants import TaskStatus
 
 
-TENANT_ID = "782dc11073c211f1a60c01b4967394e8"
+TENANT_ID = "<configure-RAGFLOW_TENANT_ID>"
 NAS_ROOT = Path("/ragflow/nas/LE_TOUCH_SHR")
 REPORT_PATH = Path("/tmp/ragflow_controlled_batch_import_report.json")
 LOG_PATH = Path("/tmp/ragflow_controlled_batch_import.log")

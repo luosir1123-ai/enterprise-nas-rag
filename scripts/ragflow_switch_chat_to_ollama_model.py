@@ -20,8 +20,8 @@ from api.db.services.tenant_model_service import TenantModelService
 from common.constants import LLMType
 
 
-TENANT_ID = "782dc11073c211f1a60c01b4967394e8"
-CHAT_ID = "5dc6373c746011f1b4e439a2bb3fe40b"
+TENANT_ID = "<configure-RAGFLOW_TENANT_ID>"
+CHAT_ID = "<configure-RAGFLOW_CHAT_ID>"
 PROVIDER_NAME = "Ollama"
 INSTANCE_NAME = "local-ollama"
 

@@ -19,7 +19,7 @@ from api.db.services.knowledgebase_service import KnowledgebaseService
 from common.constants import TaskStatus
 
 
-TENANT_ID = "782dc11073c211f1a60c01b4967394e8"
+TENANT_ID = "<configure-RAGFLOW_TENANT_ID>"
 EMBD_ID = "bge-m3:latest@local-ollama@Ollama"
 LLM_ID = "qwen3.6:27b@local-ollama@Ollama"
 NAS_ROOT = Path("/ragflow/nas/LE_TOUCH_SHR")
@@ -170,8 +170,8 @@ async def ensure_kb(kb_def: dict, report: dict):
 
 async def cleanup_garbled_kbs(report: dict) -> None:
     stale_ids = [
-        "f24136dc746511f1813dbb5488a3bb02",
-        "f242fc06746511f1813dbb5488a3bb02",
+        "<configure-stale-kb-id-1>",
+        "<configure-stale-kb-id-2>",
     ]
     existing = []
     for kb_id in stale_ids:

@@ -20,8 +20,8 @@ from common import settings
 from rag.nlp import search
 
 
-TENANT_ID = "782dc11073c211f1a60c01b4967394e8"
-CHAT_ID = "5dc6373c746011f1b4e439a2bb3fe40b"
+TENANT_ID = "<configure-RAGFLOW_TENANT_ID>"
+CHAT_ID = "<configure-RAGFLOW_CHAT_ID>"
 
 DATASET_NAMES = [
     "\u91c7\u8d2d\u77e5\u8bc6\u5e93",

@@ -58,8 +58,8 @@ type AssistantConfig = {
 const ASSISTANTS: AssistantConfig[] = [
   {
     key: 'purchase',
-    chatId: 'b12c3984841511f1b6171536aff2886e',
-    knowledgeBaseId: '1f8ef26c79ea11f188ae0568c90e9371',
+    chatId: '<configure-purchase-chat-id>',
+    knowledgeBaseId: '<configure-purchase-dataset-id>',
     name: '采购知识助手',
     shortName: '采购',
     description: '供应商报价、采购资料、认证与规格查询',
@@ -69,8 +69,8 @@ const ASSISTANTS: AssistantConfig[] = [
   },
   {
     key: 'sales',
-    chatId: '1077ccfa841611f1b6171536aff2886e',
-    knowledgeBaseId: '1f9106ec79ea11f188ae0568c90e9371',
+    chatId: '<configure-sales-chat-id>',
+    knowledgeBaseId: '<configure-sales-dataset-id>',
     name: '销售知识助手',
     shortName: '销售',
     description: '客户方案、历史报价、订单与项目资料查询',
@@ -80,8 +80,8 @@ const ASSISTANTS: AssistantConfig[] = [
   },
   {
     key: 'product',
-    chatId: '97347fe67aab11f19289392309541330',
-    knowledgeBaseId: '1f91c47e79ea11f188ae0568c90e9371',
+    chatId: '<configure-product-chat-id>',
+    knowledgeBaseId: '<configure-product-dataset-id>',
     name: '产品资料助手',
     shortName: '产品',
     description: '产品规格、设计文档、BOM 与测试报告查询',

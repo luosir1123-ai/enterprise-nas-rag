@@ -19,14 +19,14 @@ from pathlib import Path
 
 
 DATASET_IDS = {
-    "\u91c7\u8d2d\u77e5\u8bc6\u5e93": "1f8ef26c79ea11f188ae0568c90e9371",
-    "\u9500\u552e\u77e5\u8bc6\u5e93": "1f9106ec79ea11f188ae0568c90e9371",
-    "\u4ea7\u54c1\u8bbe\u8ba1\u77e5\u8bc6\u5e93": "1f91c47e79ea11f188ae0568c90e9371",
+    "\u91c7\u8d2d\u77e5\u8bc6\u5e93": "<configure-purchase-dataset-id>",
+    "\u9500\u552e\u77e5\u8bc6\u5e93": "<configure-sales-dataset-id>",
+    "\u4ea7\u54c1\u8bbe\u8ba1\u77e5\u8bc6\u5e93": "<configure-product-dataset-id>",
 }
 CHAT_IDS = {
-    "\u91c7\u8d2d\u77e5\u8bc6\u5e93": "b12c3984841511f1b6171536aff2886e",
-    "\u9500\u552e\u77e5\u8bc6\u5e93": "1077ccfa841611f1b6171536aff2886e",
-    "\u4ea7\u54c1\u8bbe\u8ba1\u77e5\u8bc6\u5e93": "97347fe67aab11f19289392309541330",
+    "\u91c7\u8d2d\u77e5\u8bc6\u5e93": "<configure-purchase-chat-id>",
+    "\u9500\u552e\u77e5\u8bc6\u5e93": "<configure-sales-chat-id>",
+    "\u4ea7\u54c1\u8bbe\u8ba1\u77e5\u5e93": "<configure-product-chat-id>",
 }
 REFUSAL_TEXT = "\u5f53\u524d\u77e5\u8bc6\u5e93\u6ca1\u6709\u8db3\u591f\u8bc1\u636e\u652f\u6301\u8be5\u95ee\u9898\u3002"
 SCORER_VERSION = "v2"
